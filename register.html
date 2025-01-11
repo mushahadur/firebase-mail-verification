@@ -7,86 +7,26 @@
     <title>Register Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <script type="module" src="./register.js"></script>
 </head>
 
 <body class="font-sans antialiased">
-    <div class="">
+    <div class="pt-16">
         <div class="flex justify-center">
             <div class="col-lg-12">
-                <div class=" max-w-md p-8 space-y-6 bg-white shadow-xl rounded-lg">
-                    <h1 class="text-4xl font-bold text-black mb-2">Sign Up.</h1>
-                    <p class="text-sm text-gray-700 mb-4">Already have an account? <a href="#"
-                            class="text-green-500 font-bold">Login</a></p>
+                <div class="max-w-md p-8 space-y-6 bg-white shadow-xl rounded-lg">
+                    <h1 class="text-4xl text-center font-bold text-black mb-2">Congratulations!</h1>
+                    <p class="text-md text-center text-green-500 mb-4">You are a verified user 😎.</p>
+                    <p class="text-sm text-center text-dark mb-4">Click the confirm button to complete your registration, and then proceed to log in.</p>
                     <form class="space-y-4" method="post" action="signup.php">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700" for="email"><i
-                                    class="fas fa-envelope"></i>
-                                Email</label>
-                            <input type="email" id="email"  name="email" readonly
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                                placeholder="Email">
-                            <p class="mt-1 text-xs text-gray-500">Please make sure your email address is correct so we
-                                can get in
-                                touch with
-                                you.</p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700" for="username"><i
-                                    class="fas fa-user"></i>
-                                Username</label>
-                            <input type="text" id="username" name="username" readonly
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                                placeholder="Username">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700" for="password"><i
-                                    class="fas fa-lock"></i>
-                                Password</label>
-                            <div class="relative">
-                                <input type="password" id="password" name="password" readonly
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                                    placeholder="Password">
-                                <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
-                                    <i class="fas fa-eye cursor-pointer" id="togglePassword"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700" for="confirm-password"><i
-                                    class="fas fa-lock"></i>
-                                Confirm Password</label>
-                            <div class="relative">
-                                <input type="password" id="confirm-password" readonly name="confirm_password"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                                    placeholder="Confirm Password">
-                                <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
-                                    <i class="fas fa-eye cursor-pointer" id="toggleConfirmPassword"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700" for="referral-code">Referral
-                                Code</label>
-                            <input type="text" id="referral-code" name="referral_code"
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                                placeholder="Referral Code">
-                        </div>
-                        <div class="flex items-start">
-                            <div class="flex items-center h-5">
-                                <input id="terms" name="terms" type="checkbox"
-                                    class="focus:ring-green-500 h-4 w-4 text-green-600 border-gray-300 rounded">
-                            </div>
-                            <div class="ml-3 text-sm">
-                                <label for="terms" class="font-medium text-gray-700">I agree to the <a href="#"
-                                        class="text-green-500">Terms &
-                                        Conditions and Privacy Policy</a></label>
-                            </div>
-                        </div>
+                        <input type="text" name="email" hidden>
+                        <input type="text" name="username" hidden>
+                        <input type="text" name="password" hidden>
+                        <input type="text" name="referral_code" hidden>
+                        <input type="text" name="terms" hidden>
                         <div>
                             <button type="submit"
-                                class="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                                REGISTER <i class="fas fa-arrow-right ml-2"></i>
+                                class="w-full flex justify-center uppercase items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                Confirm <i class="fas fa-arrow-right ml-2"></i>
                             </button>
                         </div>
                     </form>
@@ -96,8 +36,6 @@
     </div>
 
     <script>
-        
-
         document.addEventListener("DOMContentLoaded", function () {
             var email = localStorage.getItem('email');
             var username = localStorage.getItem('username');

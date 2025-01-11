@@ -1,19 +1,14 @@
 <?php
 // Database connection
-$conn = new mysqli("localhost", "root", "", "my_project_db");
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'db_config.php';
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST['email']) || empty($_POST['username']) || empty($_POST['password']) || empty($_POST['referral_code']) || empty($_POST['terms'])) {
         
         session_start();
-        $_SESSION['message_requird'] = "All fields are required.";
-        header('Location: login.php');
+        $_SESSION['message'] = "Session time out, Please try again registration.";
+        header('Location: register.php');
         exit();
     }
     $email = isset($_POST['email']) ? $_POST['email'] : '';

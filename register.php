@@ -1,21 +1,23 @@
 <?php
 $pageTitle = "Register";
-// include 'db_config.php';
 include 'header.php';
-$referId = isset($_GET['referId']) ? htmlspecialchars($_GET['referId']) : '';
 
+$referId = isset($_GET['referId']) ? htmlspecialchars($_GET['referId']) : '';
+session_start();
+$errors = isset($_SESSION['errors']) ? $_SESSION['errors'] : [];
+$form_data = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
+$message = isset($_SESSION['message']) ? $_SESSION['message'] : '';
+session_unset();
 ?>
 
 <div class="container pt-32">
     <div class="flex justify-center">
         <div class="col-lg-12">
-        <?php
-                session_start();
-                if (isset($_SESSION['message'])) {
-                    echo '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">' . $_SESSION['message'] . '</div>';
-                    unset($_SESSION['message']);
-                }
-                ?>
+            <?php if (!empty($message)): ?>
+                <div class="bg-red-100 border text-xs border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <?php echo htmlspecialchars($message); ?>
+                </div>
+            <?php endif; ?>
             <div class=" max-w-md p-8 space-y-6 bg-white shadow-xl rounded-lg">
                 <h1 class="text-4xl font-bold text-black mb-2">Sign Up.</h1>
                 <p class="text-sm text-gray-700 mb-4">Already have an account? <a href="#"
@@ -28,10 +30,11 @@ $referId = isset($_GET['referId']) ? htmlspecialchars($_GET['referId']) : '';
                         <input type="email" id="email" name="email"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                             placeholder="Email">
-                        <p class="mt-1 text-xs text-gray-500">Please make sure your email address is correct so we
-                            can get in
-                            touch with
-                            you.</p>
+                        <?php if (!empty($errors['email'])): ?>
+                            <div class="text-xs text-red-400"><?php echo $errors['email']; ?></div>
+                        <?php else: ?>
+                            <p class="mt-1 text-xs text-gray-500">Please make sure your email address is correct so we can get in touch with you.</p>
+                        <?php endif; ?>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700" for="username"><i
@@ -40,8 +43,13 @@ $referId = isset($_GET['referId']) ? htmlspecialchars($_GET['referId']) : '';
                         <input type="text" id="username" name="username"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                             placeholder="Username">
-                        <button type="button" class="mt-1 text-xs text-green-500 font-bold"
-                            id="generateUsername">Generate Username</button>
+                        <div class="flex gap-2 items-center">
+                            <button type="button" class="mt-1 text-xs text-green-500 font-bold"
+                                id="generateUsername">Generate Username</button>
+                            <?php if (!empty($errors['username'])): ?>
+                                <div class="text-xs text-red-400 pt-1"><?php echo $errors['username']; ?></div>
+                            <?php endif; ?>
+                        </div>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700" for="password"><i
@@ -55,6 +63,11 @@ $referId = isset($_GET['referId']) ? htmlspecialchars($_GET['referId']) : '';
                                 <i class="fas fa-eye cursor-pointer" id="togglePassword"></i>
                             </span>
                         </div>
+                        <?php if (!empty($errors['password'])): ?>
+                            <div class="text-xs text-red-400"><?php echo $errors['password']; ?></div>
+                            <?php else: ?>
+                        <p class="mt-1 text-xs text-gray-500">Password must be at least 8 characters, uppercase, lowercase, number, special characters.</p>
+                    <?php endif; ?>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700" for="confirm-password"><i
@@ -67,6 +80,9 @@ $referId = isset($_GET['referId']) ? htmlspecialchars($_GET['referId']) : '';
                             <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                                 <i class="fas fa-eye cursor-pointer" id="toggleConfirmPassword"></i>
                             </span>
+                            <?php if (!empty($errors['confirm_password'])): ?>
+                                <div class="text-xs text-red-400"><?php echo $errors['confirm_password']; ?></div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div>
@@ -79,14 +95,18 @@ $referId = isset($_GET['referId']) ? htmlspecialchars($_GET['referId']) : '';
                             value="<?php echo $referId; ?>">
                     </div>
                     <div class="flex items-start">
-                        <div class="flex items-center h-5">
+                        <div class="flex items-center h-10">
                             <input id="terms" name="terms" type="checkbox"
                                 class="focus:ring-green-500 h-4 w-4 text-green-600 border-gray-300 rounded">
                         </div>
-                        <div class="ml-3 text-sm">
+                        <div class="ml-3 pt-3 text-sm">
                             <label for="terms" class="font-medium text-gray-700">I agree to the <a href="#"
                                     class="text-green-500">Terms &
-                                    Conditions and Privacy Policy</a></label>
+                                    Conditions and Privacy Policy</a>
+                                <?php if (!empty($errors['terms'])): ?>
+                                    <div class="text-xs text-red-400"><?php echo $errors['terms']; ?></div>
+                                <?php endif; ?>
+                            </label>
                         </div>
                     </div>
                     <div>
@@ -100,7 +120,6 @@ $referId = isset($_GET['referId']) ? htmlspecialchars($_GET['referId']) : '';
         </div>
     </div>
 </div>
-
 <script type="module">
     // Generate Username
     document.getElementById('generateUsername').addEventListener('click', () => {
@@ -128,6 +147,4 @@ $referId = isset($_GET['referId']) ? htmlspecialchars($_GET['referId']) : '';
     });
 </script>
 
-<?php
-include 'footer.php';
-?>
+<?php include 'footer.php'; ?>
