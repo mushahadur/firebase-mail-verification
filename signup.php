@@ -4,7 +4,7 @@ include 'db_config.php';
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST['email']) || empty($_POST['username']) || empty($_POST['password']) || empty($_POST['referral_code']) || empty($_POST['terms'])) {
+    if (empty($_POST['email']) || empty($_POST['username']) || empty($_POST['password']) || empty($_POST['referral_code'])) {
         
         session_start();
         $_SESSION['message'] = "Session time out, Please try again registration.";

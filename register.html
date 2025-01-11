@@ -7,26 +7,50 @@
     <title>Register Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <script type="module" src="./register.js"></script>
 </head>
 
 <body class="font-sans antialiased">
-    <div class="pt-16">
+    <div class="">
         <div class="flex justify-center">
             <div class="col-lg-12">
-                <div class="max-w-md p-8 space-y-6 bg-white shadow-xl rounded-lg">
+                <div class=" max-w-md p-8 space-y-6 bg-white shadow-xl rounded-lg">
                     <h1 class="text-4xl text-center font-bold text-black mb-2">Congratulations!</h1>
                     <p class="text-md text-center text-green-500 mb-4">You are a verified user 😎.</p>
                     <p class="text-sm text-center text-dark mb-4">Click the confirm button to complete your registration, and then proceed to log in.</p>
                     <form class="space-y-4" method="post" action="signup.php">
-                        <input type="text" name="email" hidden>
-                        <input type="text" name="username" hidden>
-                        <input type="text" name="password" hidden>
-                        <input type="text" name="referral_code" hidden>
-                        <input type="text" name="terms" hidden>
+                        <div>
+                            <input type="email" id="email" name="email" hidden
+                               >
+                        </div>
+                        <div>
+                            <input type="text" id="username" name="username" hidden
+                                >
+                        </div>
+                        <div>
+                            <div class="relative">
+                                <input type="password" id="password" name="password" hidden
+                                    >
+                            </div>
+                        </div>
+                        <div>
+                            <div class="relative">
+                                <input type="password" id="confirm-password" hidden name="confirm_password"
+                                    >
+                            </div>
+                        </div>
+                        <div>
+                            <input type="text" id="referral-code" name="referral_code" hidden>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex items-center">
+                                <input id="terms" name="terms" type="checkbox" value="on" hidden>
+                            </div>
+                        </div>
                         <div>
                             <button type="submit"
-                                class="w-full flex justify-center uppercase items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                                Confirm <i class="fas fa-arrow-right ml-2"></i>
+                                class="w-full flex justify-center uppercase  items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                Confirm Your REGISTER <i class="fas fa-arrow-right ml-2"></i>
                             </button>
                         </div>
                     </form>
@@ -47,26 +71,26 @@
                 document.getElementById('email').value = email;
                 setTimeout(function () {
                     localStorage.removeItem('email');
-                }, 5000); // 40 seconds
+                }, 200000); // 40 seconds
             }
             if (username) {
                 document.getElementById('username').value = username;
                 setTimeout(function () {
                     localStorage.removeItem('username');
-                }, 5000); // 40 seconds
+                }, 200000); // 40 seconds
             }
             if (password) {
                 document.getElementById('password').value = password;
                 document.getElementById('confirm-password').value = password;
                 setTimeout(function () {
                     localStorage.removeItem('password');
-                }, 5000); // 40 seconds
+                }, 200000); // 40 seconds
             }
             if (referral_code) {
-                document.getElementById('referral_code').value = referral_code;
+                document.getElementById('referral-code').value = referral_code;
                 setTimeout(function () {
                     localStorage.removeItem('referral_code');
-                }, 5000); // 40 seconds
+                }, 200000); // 40 seconds
             }
         });
 

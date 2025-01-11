@@ -28,6 +28,7 @@ session_unset();
                                 class="fas fa-envelope"></i>
                             Email</label>
                         <input type="email" id="email" name="email"
+                         value="<?php echo isset($form_data['email']) ? htmlspecialchars($form_data['email']) : ''; ?>"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                             placeholder="Email">
                         <?php if (!empty($errors['email'])): ?>
@@ -41,6 +42,7 @@ session_unset();
                                 class="fas fa-user"></i>
                             Username</label>
                         <input type="text" id="username" name="username"
+                         value="<?php echo isset($form_data['username']) ? htmlspecialchars($form_data['username']) : ''; ?>"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                             placeholder="Username">
                         <div class="flex gap-2 items-center">
@@ -57,6 +59,7 @@ session_unset();
                             Password</label>
                         <div class="relative">
                             <input type="password" id="password" name="password"
+                             value="<?php echo isset($form_data['password']) ? htmlspecialchars($form_data['password']) : ''; ?>"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                                 placeholder="Password">
                             <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
@@ -75,6 +78,7 @@ session_unset();
                             Confirm Password</label>
                         <div class="relative">
                             <input type="password" id="confirm-password" name="confirm_password"
+                             value="<?php echo isset($form_data['confirm_password']) ? htmlspecialchars($form_data['confirm_password']) : ''; ?>"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                                 placeholder="Confirm Password">
                             <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
@@ -90,9 +94,9 @@ session_unset();
                             Code</label>
                         <input type="text" id="referral-code"
                             name="referral_code"
+                              value="<?php echo $referId; ?>"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                            placeholder="Referral Code"
-                            value="<?php echo $referId; ?>">
+                            placeholder="Referral Code">
                     </div>
                     <div class="flex items-start">
                         <div class="flex items-center h-10">

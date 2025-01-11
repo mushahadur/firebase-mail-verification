@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
                     // Action code settings for the magic link
                     const actionCodeSettings = {
-                        url: 'http://localhost/firebase/new-project/register.html',
+                        url: 'http://localhost/firebase-mail-verification/register.html',
                         handleCodeInApp: true,
                     };
             
@@ -128,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $_SESSION['errors'] = $errors;
         $_SESSION['form_data'] = $_POST;
-        header('Location: register.php');
+        header('Location: register.php?referId=' . $referral_code);
         exit();
     }
 }
