@@ -20,7 +20,7 @@ session_unset();
             <?php endif; ?>
             <div class=" max-w-md p-8 space-y-6 bg-white shadow-xl rounded-lg">
                 <h1 class="text-4xl font-bold text-black mb-2">Sign Up.</h1>
-                <p class="text-sm text-gray-700 mb-4">Already have an account? <a href="#"
+                <p class="text-sm text-gray-700 mb-4">Already have an account? <a href="login.php"
                         class="text-green-500 font-bold">Login</a></p>
                 <form class="space-y-4" action="action.php" method="POST">
                     <div>

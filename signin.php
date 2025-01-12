@@ -1,66 +1,48 @@
 <?php
 // Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "your_database_name";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Login action
+include 'db_config.php';
+session_start();
+$errors = ['email' => '', 'password' => ''];
+// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Check if email is verified
-    $sql = "SELECT * FROM users WHERE email = ? AND email_verified = 1";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-        // Verify password
-        if (password_verify($password, $user['password'])) {
-            // Successful login
-            echo "Login successful!";
-            // Start session and set session variables
-            session_start();
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['email'] = $user['email'];
-            // Redirect to dashboard or another page
-            header("Location: dashboard.php");
-        } else {
-            // Invalid password
-            echo "Invalid password.";
-        }
-    } else {
-        // Email not verified or user does not exist
-        echo "Email not verified or user does not exist.";
+    // Email Validation
+    if (empty($email)) {
+        $errors['email'] = "Email is required.";
     }
-}
-?>
+    // Validate Password
+    if (empty($password)) {
+        $errors['password'] = "Password is required.";
+    }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-    <form method="post" action="signin.php">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">Login</button>
-    </form>
-</body>
-</html>
+    if (!array_filter($errors)) {
+        // Check if email exists and verify password
+        $sql = "SELECT * FROM register_user WHERE email=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            if (password_verify($password, $user['password'])) {
+                $_SESSION['email'] = $email;
+                header('Location: dashboard.php');
+                exit();
+            } else {
+                $_SESSION['errors_message'] = "Invalid email or password.";
+            }
+        } else {
+            $_SESSION['errors_message'] = "Invalid email or password.";
+        }
+        $stmt->close();
+    } else {
+        $_SESSION['errors'] = $errors;
+        $_SESSION['form_data'] = $_POST;
+    }
+    header('Location: login.php');
+    exit();
+}
+$conn->close();

@@ -5,7 +5,7 @@ include 'db_config.php';
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST['email']) || empty($_POST['username']) || empty($_POST['password']) || empty($_POST['referral_code'])) {
-        
+
         session_start();
         $_SESSION['message'] = "Session time out, Please try again registration.";
         header('Location: register.php');
@@ -24,10 +24,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->query($sql) === TRUE) {
         session_start();
         $_SESSION['message'] = "Your Registration successful!";
-        header('Location: login.php');
+        echo "<script>
+            localStorage.removeItem('email');
+            localStorage.removeItem('username');
+            localStorage.removeItem('password');
+            localStorage.removeItem('referral_code');
+            localStorage.removeItem('terms');
+            window.location.href = 'login.php';
+        </script>";
         exit();
     } else {
         echo "Error: " . $conn->error;
     }
 }
 $conn->close();
+?>

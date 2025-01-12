@@ -82,13 +82,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
                     // Firebase configuration
                     const firebaseConfig = {
-                        apiKey: 'AIzaSyCCbQ_JqGk88DDI1rG3l379_djP05c4hvQ',
-                        authDomain: 'email-auth-500a9.firebaseapp.com',
-                        projectId: 'email-auth-500a9',
-                        storageBucket: 'email-auth-500a9.firebasestorage.app',
-                        messagingSenderId: '412003158891',
-                        appId: '1:412003158891:web:7922aa6e43594878711a2e',
-                        measurementId: 'G-H7CD4TCTNW'
+                        apiKey: 'AIzaSyD8lG_jdhKLbugBXubGyK5xVdM1eU3j48o',
+                        authDomain: 'email-auth-a244a.firebaseapp.com',
+                        databaseURL: 'https://email-auth-a244a-default-rtdb.firebaseio.com',
+                        projectId: 'email-auth-a244a',
+                        storageBucket: 'email-auth-a244a.firebasestorage.app',
+                        messagingSenderId: '326045559261',
+                        appId: '1:326045559261:web:a1c5469329d9cd0f05ae34',
+                        measurementId: 'G-107NFE8EXP'
                     };
             
                     // Initialize Firebase

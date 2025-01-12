@@ -47,7 +47,7 @@
                         <a class="nav-link page-scroll" href="#features">Features</a>
                     </li>
                     <li>
-                        <a class="nav-link page-scroll" href="#login">Login</a>
+                        <a class="nav-link page-scroll" href="login.php">Login</a>
                     </li>
                     <li>
                         <a class="nav-link page-scroll" href="register.php?referId=pulock-1234">Register</a>
