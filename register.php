@@ -8,9 +8,10 @@ $errors = isset($_SESSION['errors']) ? $_SESSION['errors'] : [];
 $form_data = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
 $message = isset($_SESSION['message']) ? $_SESSION['message'] : '';
 session_unset();
+
 ?>
 
-<div class="container pt-32">
+<div class="container pt-16">
     <div class="flex justify-center">
         <div class="col-lg-12">
             <?php if (!empty($message)): ?>
@@ -24,25 +25,21 @@ session_unset();
                         class="text-green-500 font-bold">Login</a></p>
                 <form class="space-y-4" action="action.php" method="POST">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700" for="email"><i
-                                class="fas fa-envelope"></i>
-                            Email</label>
-                        <input type="email" id="email" name="email"
-                         value="<?php echo isset($form_data['email']) ? htmlspecialchars($form_data['email']) : ''; ?>"
+                        <label class="block text-sm font-medium text-gray-700" for="profile_name">
+                        <i class="fas fa-user-tie"></i>
+                            Profile Name</label>
+                        <input type="text" id="profile_name" name="profile_name"
+                            value="<?php echo isset($form_data['profile_name']) ? htmlspecialchars($form_data['profile_name']) : ''; ?>"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                            placeholder="Email">
-                        <?php if (!empty($errors['email'])): ?>
-                            <div class="text-xs text-red-400"><?php echo $errors['email']; ?></div>
-                        <?php else: ?>
-                            <p class="mt-1 text-xs text-gray-500">Please make sure your email address is correct so we can get in touch with you.</p>
-                        <?php endif; ?>
+                            placeholder="Profile Name">
+                        <p class="mt-1 text-xs text-gray-500">Please enter your good profile name.</p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700" for="username"><i
                                 class="fas fa-user"></i>
                             Username</label>
                         <input type="text" id="username" name="username"
-                         value="<?php echo isset($form_data['username']) ? htmlspecialchars($form_data['username']) : ''; ?>"
+                            value="<?php echo isset($form_data['username']) ? htmlspecialchars($form_data['username']) : ''; ?>"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                             placeholder="Username">
                         <div class="flex gap-2 items-center">
@@ -54,12 +51,27 @@ session_unset();
                         </div>
                     </div>
                     <div>
+                        <label class="block text-sm font-medium text-gray-700" for="email"><i
+                                class="fas fa-envelope"></i>
+                            Email</label>
+                        <input type="email" id="email" name="email"
+                            value="<?php echo isset($form_data['email']) ? htmlspecialchars($form_data['email']) : ''; ?>"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                            placeholder="Email">
+                        <?php if (!empty($errors['email'])): ?>
+                            <div class="text-xs text-red-400"><?php echo $errors['email']; ?></div>
+                        <?php else: ?>
+                            <p class="mt-1 text-xs text-gray-500">Please make sure your email address is correct so we can get in touch with you.</p>
+                        <?php endif; ?>
+                    </div>
+
+                    <div>
                         <label class="block text-sm font-medium text-gray-700" for="password"><i
                                 class="fas fa-lock"></i>
                             Password</label>
                         <div class="relative">
                             <input type="password" id="password" name="password"
-                             value="<?php echo isset($form_data['password']) ? htmlspecialchars($form_data['password']) : ''; ?>"
+                                value="<?php echo isset($form_data['password']) ? htmlspecialchars($form_data['password']) : ''; ?>"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                                 placeholder="Password">
                             <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
@@ -68,9 +80,9 @@ session_unset();
                         </div>
                         <?php if (!empty($errors['password'])): ?>
                             <div class="text-xs text-red-400"><?php echo $errors['password']; ?></div>
-                            <?php else: ?>
-                        <p class="mt-1 text-xs text-gray-500">Password must be at least 8 characters, uppercase, lowercase, number, special characters.</p>
-                    <?php endif; ?>
+                        <?php else: ?>
+                            <p class="mt-1 text-xs text-gray-500">Password must be at least 8 characters, uppercase, lowercase, number, special characters.</p>
+                        <?php endif; ?>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700" for="confirm-password"><i
@@ -78,7 +90,7 @@ session_unset();
                             Confirm Password</label>
                         <div class="relative">
                             <input type="password" id="confirm-password" name="confirm_password"
-                             value="<?php echo isset($form_data['confirm_password']) ? htmlspecialchars($form_data['confirm_password']) : ''; ?>"
+                                value="<?php echo isset($form_data['confirm_password']) ? htmlspecialchars($form_data['confirm_password']) : ''; ?>"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                                 placeholder="Confirm Password">
                             <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
@@ -94,7 +106,7 @@ session_unset();
                             Code</label>
                         <input type="text" id="referral-code"
                             name="referral_code"
-                              value="<?php echo $referId; ?>"
+                            value="<?php echo $referId; ?>"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                             placeholder="Referral Code">
                     </div>

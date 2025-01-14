@@ -2,10 +2,13 @@
 $pageTitle = "Register";
 session_start();
 include 'header.php';
-include 'db_config.php';
+require 'db_config.php';
 
 $errors = ['username' => '', 'email' => '', 'password' => '', 'confirm_password' => '', 'terms' => ''];
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $profile_name = trim($_POST['profile_name']);
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $password = $_POST['password'];
@@ -58,38 +61,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!array_filter($errors)) {
 
-        // Check if email already exists
-        $sql = "SELECT * FROM register_user WHERE email='$email'";
+        // Check if email or username already exists
+        $sql = "SELECT * FROM register_user WHERE email='$email' OR username='$username'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            echo "<script>
-        if (localStorage.getItem('email')) {
-            localStorage.removeItem('email');
-            localStorage.removeItem('username');
-            localStorage.removeItem('password');
-            localStorage.removeItem('referral_code');
-            localStorage.removeItem('terms');
-        }
-        </script>";
-            $_SESSION['message'] = "Email already registered, Please enter a new email address.";
+            while ($row = $result->fetch_assoc()) {
+            if ($row['email'] == $email) {
+                $errors['email'] = "Email already registered, please enter a new email address.";
+            }
+            if ($row['username'] == $username) {
+                $errors['username'] = "Username already registered, please enter a new username.";
+            }
+            }
+            $_SESSION['errors'] = $errors;
+            $_SESSION['form_data'] = $_POST;
             header('Location: register.php');
-        } else {
+            exit();
+       
+        }else {
             echo "
                 <script type='module'>
                     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
                     import { getAuth, sendSignInLinkToEmail } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
             
                     // Firebase configuration
-                    const firebaseConfig = {
-                        apiKey: 'AIzaSyD8lG_jdhKLbugBXubGyK5xVdM1eU3j48o',
-                        authDomain: 'email-auth-a244a.firebaseapp.com',
-                        databaseURL: 'https://email-auth-a244a-default-rtdb.firebaseio.com',
-                        projectId: 'email-auth-a244a',
-                        storageBucket: 'email-auth-a244a.firebasestorage.app',
-                        messagingSenderId: '326045559261',
-                        appId: '1:326045559261:web:a1c5469329d9cd0f05ae34',
-                        measurementId: 'G-107NFE8EXP'
+                     const firebaseConfig = {
+                        apiKey: 'AIzaSyBP8xQWQwhgJgSSjx5zZtqE8CXDo-GxQac',
+                        authDomain: 'user-verification-b3f1b.firebaseapp.com',
+                        projectId: 'user-verification-b3f1b',
+                        storageBucket: 'user-verification-b3f1b.firebasestorage.app',
+                        messagingSenderId: '22805202660',
+                        appId: '1:22805202660:web:056988727a5dd31a500ef1',
+                        measurementId: 'G-6CYBRJ31BJ'
                     };
             
                     // Initialize Firebase
@@ -103,11 +107,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     };
             
                     // Send magic link
+                    const profile_name = '$profile_name';
+                    const username = '$username';
                     const email = '$email';
+                    const password = '$password';
+                    const referral_code = '$referral_code';
+                    const terms = '$terms';
                     sendSignInLinkToEmail(auth, email, actionCodeSettings)
                         .then(() => {
                             localStorage.setItem('emailForSignIn', email);
                             localStorage.setItem('email', '$email');
+                            localStorage.setItem('profile_name', '$profile_name');
                             localStorage.setItem('username', '$username');
                             localStorage.setItem('password', '$password');
                             localStorage.setItem('referral_code', '$referral_code');
@@ -115,6 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         })
                         .catch((error) => {
                             localStorage.removeItem('email');
+                            localStorage.removeItem('profile_name');
                             localStorage.removeItem('username');
                             localStorage.removeItem('password');
                             localStorage.removeItem('referral_code');
@@ -129,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $_SESSION['errors'] = $errors;
         $_SESSION['form_data'] = $_POST;
-        header('Location: register.php?referId=' . $referral_code);
+        header('Location: register.php?referId='.$referral_code);
         exit();
     }
 }

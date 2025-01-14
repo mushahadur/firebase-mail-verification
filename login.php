@@ -4,6 +4,8 @@ $pageTitle = "Login";
 include 'header.php';
 
 session_start();
+echo $_SESSION['check'];
+
 $errors = isset($_SESSION['errors']) ? $_SESSION['errors'] : [];
 $form_data = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
 $message = isset($_SESSION['message']) ? $_SESSION['message'] : '';

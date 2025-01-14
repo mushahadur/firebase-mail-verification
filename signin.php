@@ -1,6 +1,6 @@
 <?php
 // Database connection
-include 'db_config.php';
+require 'db_config.php';
 session_start();
 $errors = ['email' => '', 'password' => ''];
 // Check if form is submitted
