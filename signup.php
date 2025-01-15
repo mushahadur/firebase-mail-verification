@@ -11,18 +11,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header('Location: register.php');
         exit();
     }
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
-    $profile_name = isset($_POST['profile_name']) ? $_POST['profile_name'] : '';
-    $username = isset($_POST['username']) ? $_POST['username'] : '';
-    $password = isset($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : '';
-    $referral_code = isset($_POST['referral_code']) ? $_POST['referral_code'] : '';
-    $terms = isset($_POST['terms']) ? $_POST['terms'] : '';
+    $email = trim($_POST['email']);
+    $username = trim($_POST['username']);
+    $profile_name = trim($_POST['profile_name']);
+    $password = trim($_POST['password']);
+    $referral_code = trim($_POST['referral_code']);
+    $terms = trim($_POST['terms']);
 
-    // Insert data into database
-    $sql = "INSERT INTO register_user (email, profile_name, username, password, referral_code, terms) 
-            VALUES ('$email', '$profile_name ', $username', '$password', '$referral_code', '$terms')";
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-    if ($conn->query($sql) === TRUE) {
+    // Insert into database
+    $sql = "INSERT INTO register_user (profile_name, username, email, password, referral_code, terms) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    if ($stmt) {
+        $stmt->bind_param("ssssss", $profile_name, $username, $email, $hashedPassword, $referral_code, $terms);
+        $stmt->execute();
         session_start();
         $_SESSION['message'] = "Your Registration successful!";
         echo "<script>
@@ -32,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             localStorage.removeItem('password');
             localStorage.removeItem('referral_code');
             localStorage.removeItem('terms');
-            window.location.href = 'login.php';
+            window.location.href = 'download.php';
         </script>";
         exit();
     } else {
@@ -40,4 +43,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 $conn->close();
-?>

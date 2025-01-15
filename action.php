@@ -4,9 +4,24 @@ session_start();
 include 'header.php';
 require 'db_config.php';
 
+//__ For Validation __ username
+// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+//     $data = json_decode(file_get_contents("php://input"), true);
+//     if (isset($data['username'])) {
+//         $username = trim($data['username']);
+//         $stmt = $conn->prepare("SELECT COUNT(*) FROM register_user WHERE username = ?");
+//         $stmt->bind_param("s", $username);
+//         $stmt->execute();
+//         $stmt->bind_result($count);
+//         $stmt->fetch();
+//         $stmt->close();
+//         echo json_encode(['exists' => $count > 0, 'username' => $username]);
+//         exit;
+//     }
+// }
+// echo json_encode(['exists' => false]);
+
 $errors = ['username' => '', 'email' => '', 'password' => '', 'confirm_password' => '', 'terms' => ''];
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $profile_name = trim($_POST['profile_name']);
     $username = trim($_POST['username']);
@@ -87,13 +102,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
                     // Firebase configuration
                      const firebaseConfig = {
-                        apiKey: 'AIzaSyBP8xQWQwhgJgSSjx5zZtqE8CXDo-GxQac',
-                        authDomain: 'user-verification-b3f1b.firebaseapp.com',
-                        projectId: 'user-verification-b3f1b',
-                        storageBucket: 'user-verification-b3f1b.firebasestorage.app',
-                        messagingSenderId: '22805202660',
-                        appId: '1:22805202660:web:056988727a5dd31a500ef1',
-                        measurementId: 'G-6CYBRJ31BJ'
+                        apiKey: 'AIzaSyC2CMx98MJckvdRxsrsy_AxfHPJPUXULpA',
+                        authDomain: 'mail-verification-bcd2f.firebaseapp.com',
+                        projectId: 'mail-verification-bcd2f',
+                        storageBucket: 'mail-verification-bcd2f.firebasestorage.app',
+                        messagingSenderId: '389723336634',
+                        appId: '1:389723336634:web:ef65f2d1cdfd7f4948b783',
+                        measurementId: 'G-6SWTHFCRVS'
                     };
             
                     // Initialize Firebase

@@ -26,7 +26,7 @@ session_unset();
                 <form class="space-y-4" action="action.php" method="POST">
                     <div>
                         <label class="block text-sm font-medium text-gray-700" for="profile_name">
-                        <i class="fas fa-user-tie"></i>
+                            <i class="fas fa-user-tie"></i>
                             Profile Name</label>
                         <input type="text" id="profile_name" name="profile_name"
                             value="<?php echo isset($form_data['profile_name']) ? htmlspecialchars($form_data['profile_name']) : ''; ?>"
@@ -41,13 +41,19 @@ session_unset();
                         <input type="text" id="username" name="username"
                             value="<?php echo isset($form_data['username']) ? htmlspecialchars($form_data['username']) : ''; ?>"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                            placeholder="Username">
+                            placeholder="Username" oninput="checkUsername(this.value)">
                         <div class="flex gap-2 items-center">
                             <button type="button" class="mt-1 text-xs text-green-500 font-bold"
                                 id="generateUsername">Generate Username</button>
                             <?php if (!empty($errors['username'])): ?>
                                 <div class="text-xs text-red-400 pt-1"><?php echo $errors['username']; ?></div>
                             <?php endif; ?>
+                            <p id="username-error" class="mt-2 text-sm text-red-500 hidden">
+                                This username is not available.
+                            </p>
+                            <p id="username-valid" class="mt-2 text-sm text-green-500 hidden">
+                                This username is available.
+                            </p>
                         </div>
                     </div>
                     <div>
@@ -64,7 +70,6 @@ session_unset();
                             <p class="mt-1 text-xs text-gray-500">Please make sure your email address is correct so we can get in touch with you.</p>
                         <?php endif; ?>
                     </div>
-
                     <div>
                         <label class="block text-sm font-medium text-gray-700" for="password"><i
                                 class="fas fa-lock"></i>
@@ -142,6 +147,37 @@ session_unset();
         const usernameInput = document.getElementById('username');
         usernameInput.value = 'user_' + Math.random().toString(36).substring(2, 10);
     });
+    //__ Verify Username
+    // function checkUsername(username) {
+    //     if (!username) {
+    //         console.warn("Username input is empty.");
+    //         return;
+    //     }
+
+    //     fetch('action.php', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 username: username
+    //             })
+    //         })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.exists) {
+    //                 alert(`The username "${username}" is already taken.`);
+    //             } else {
+    //                 console.log(`The username "${username}" is available.`);
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error("Error checking username:", error);
+    //         });
+    // }
+
+
+
 
     // Toggle Password
     const togglePassword = document.querySelector('#togglePassword');
