@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Home";
-include 'header.php';
+include 'include/header.php';
 ?>
 <!-- Header -->
 <header id="header" class="header py-28 text-center md:pt-36 lg:text-left xl:pt-44 xl:pb-32">
@@ -124,5 +124,5 @@ include 'header.php';
 <!-- end of conclusion -->
 
 <?php
-include 'footer.php';
+include 'include/footer.php';
 ?>

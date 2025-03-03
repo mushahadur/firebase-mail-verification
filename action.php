@@ -4,23 +4,6 @@ session_start();
 include 'header.php';
 require 'db_config.php';
 
-//__ For Validation __ username
-// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-//     $data = json_decode(file_get_contents("php://input"), true);
-//     if (isset($data['username'])) {
-//         $username = trim($data['username']);
-//         $stmt = $conn->prepare("SELECT COUNT(*) FROM register_user WHERE username = ?");
-//         $stmt->bind_param("s", $username);
-//         $stmt->execute();
-//         $stmt->bind_result($count);
-//         $stmt->fetch();
-//         $stmt->close();
-//         echo json_encode(['exists' => $count > 0, 'username' => $username]);
-//         exit;
-//     }
-// }
-// echo json_encode(['exists' => false]);
-
 $errors = ['username' => '', 'email' => '', 'password' => '', 'confirm_password' => '', 'terms' => ''];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $profile_name = trim($_POST['profile_name']);
@@ -82,33 +65,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-            if ($row['email'] == $email) {
-                $errors['email'] = "Email already registered, please enter a new email address.";
-            }
-            if ($row['username'] == $username) {
-                $errors['username'] = "Username already registered, please enter a new username.";
-            }
+                if ($row['email'] == $email) {
+                    $errors['email'] = "Email already registered, please enter a new email address.";
+                }
+                if ($row['username'] == $username) {
+                    $errors['username'] = "Username already registered, please enter a new username.";
+                }
             }
             $_SESSION['errors'] = $errors;
             $_SESSION['form_data'] = $_POST;
             header('Location: register.php');
             exit();
-       
-        }else {
+        } else {
             echo "
                 <script type='module'>
                     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
                     import { getAuth, sendSignInLinkToEmail } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
             
                     // Firebase configuration
-                     const firebaseConfig = {
-                        apiKey: 'AIzaSyC2CMx98MJckvdRxsrsy_AxfHPJPUXULpA',
-                        authDomain: 'mail-verification-bcd2f.firebaseapp.com',
-                        projectId: 'mail-verification-bcd2f',
-                        storageBucket: 'mail-verification-bcd2f.firebasestorage.app',
-                        messagingSenderId: '389723336634',
-                        appId: '1:389723336634:web:ef65f2d1cdfd7f4948b783',
-                        measurementId: 'G-6SWTHFCRVS'
+                    const firebaseConfig = {
+                        apiKey: 'AIzaSyCvaYTVgZ-YVM9-9wDdYo39sJ-8r-ViztY',
+                        authDomain: 'user-verification-52b13.firebaseapp.com',
+                        projectId: 'user-verification-52b13',
+                        storageBucket: 'user-verification-52b13.firebasestorage.app',
+                        messagingSenderId: '1025855717995',
+                        appId: '1:1025855717995:web:5044b0ed6ae28c20d7672e',
+                        measurementId: 'G-WZPVEVNMGN'
                     };
             
                     // Initialize Firebase
@@ -155,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $_SESSION['errors'] = $errors;
         $_SESSION['form_data'] = $_POST;
-        header('Location: register.php?referId='.$referral_code);
+        header('Location: register.php?referId=' . $referral_code);
         exit();
     }
 }
